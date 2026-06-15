@@ -269,7 +269,7 @@
     <div id="dashboard" class="view-panel">
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
-                <h2 style="margin: 0;">নিবন্ধিত सदस्यों তালিকা</h2>
+                <h2 style="margin: 0;">নিবন্ধিত সদস্যদের তালিকা</h2>
                 <div style="display: flex; gap: 10px;">
                     <button onclick="fetchCloudData()" style="width: auto; background-color: var(--success);">🔄 ডাটা রিফ্রেশ</button>
                     <button onclick="exportAllToZip()" style="width: auto; background-color: var(--secondary); color: var(--dark);">সব কার্ড ডাউনলোড 📦</button>
@@ -279,7 +279,7 @@
                 <table id="membersTable">
                     <thead>
                         <tr>
-                            <th>সিরিয়াল নম্বর</th>
+                            <th>সিরিয়াল নম্বর</th>
                             <th>ছবি</th>
                             <th>নাম</th>
                             <th>মোবাইল</th>
@@ -415,9 +415,9 @@
 
         ctx.fillStyle = '#ffffff';
         ctx.font = '22px "Baloo 2", sans-serif';
-        ctx.fillText('আয়োজনেঃ এসএসসি-৯৩ পিরোজপুর', canvas.width / 2, 135);
+        ctx.fillText('আয়োজনেঃ এস���সসি-৯৩ পিরোজপুর', canvas.width / 2, 135);
 
-        // সিরিয়াল নম্বর প্রিন্ট (কার্ডের উপরে ডান কোনায় ছোট করে)
+        // সিরিয়াল নম্বর প্রিন্ট (কার্ডের উপরে ডান কোনায় ছোট করে)
         ctx.fillStyle = '#ffc107';
         ctx.font = 'bold 18px "Segoe UI", sans-serif';
         ctx.textAlign = 'right';
@@ -539,10 +539,10 @@
             document.getElementById('downloadSingleBtn').style.display = 'block';
             updateTable();
             document.getElementById('regForm').reset();
-            alert('✓ ' + name + ' এর তথ্য ক্লাউডে সংরক্ষিত হয়েছে! আইডি: ' + autoSerial);
+            alert('✓ ' + name + ' এর তথ্য ক্লাউডে সংরক্ষিত হয়েছে! আইডি: ' + autoSerial);
         } catch (e) {
             alert('❌ সার্ভার কানেকশন ত্রুটি!');
-        } verify {
+        } finally {
             hideLoader();
             setTimeout(fetchCloudData, 1500);
         }
@@ -558,7 +558,7 @@
         
         let html = '';
         registeredMembers.forEach((m, index) => {
-            // যদি ডাটাবেস থেকে সিরিয়াল না আসে তবে অটো জেনারেট করবে
+            // যদি ডাটাবেস থেকে সিরিয়াল না আসে তবে অটো জেনারেট করবে
             const displaySerial = m.serialNo || generateSerialNumber(index + 1);
             const avatarHtml = m.photoUrl ? `<img src="${m.photoUrl}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : `No Photo`;
             
@@ -624,10 +624,10 @@
             <h3>👤 নাম: ${member.name}</h3>
             <p>📱 মোবাইল: ${member.phone}</p>
             <hr>
-            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>${member.checkedIn ? '🔒 প্রবেশ সম্পন্ন' : '✅ প্রবেশ অনুমোদন'}</button>
-            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>${member.mealServed ? '🔒 খাবার দেওয়া হয়েছে' : '✅ খাবার দিন'}</button>
-            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>${member.snackServed ? '🔒 নাস্তা দেওয়া হয়েছে' : '✅ নাস্তা দিন'}</button>
-            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>${member.souvenirGiven ? '🔒 স্মারক দেওয়া হয়েছে' : '✅ স্মারক দিন'}</button>
+            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>${member.checkedIn ? '✓ প্রবেশ সম্পন্ন' : '⊘ প্রবেশ নিন'}</button>
+            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>${member.mealServed ? '✓ খাবার সম্পন্ন' : '⊘ খাবার দিন'}</button>
+            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>${member.snackServed ? '✓ নাস্তা সম্পন্ন' : '⊘ নাস্তা দিন'}</button>
+            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>${member.souvenirGiven ? '✓ স্মারক সম্পন্ন' : '⊘ স্মারক দিন'}</button>
         `;
         
         document.querySelectorAll('#scanDetails .action-btn').forEach(btn => {
