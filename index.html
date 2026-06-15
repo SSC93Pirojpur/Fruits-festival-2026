@@ -260,7 +260,7 @@
             <div class="card" style="text-align: center;">
                 <h2>আপনার ডিজিটাল পাস</h2>
                 <canvas id="ticketCanvas" width="800" height="450"></canvas>
-                <button id="downloadSingleBtn" style="display:none; margin-top:15px; background:#0dcaf0; color:black;" onclick="downloadSingleCard()">কার্ড ডাউনলোড করুন[...]
+                <button id="downloadSingleBtn" style="display:none; margin-top:15px; background:#0dcaf0; color:black;" onclick="downloadSingleCard()">কার্ড ডাউনলোড করুন</button>
             </div>
         </div>
     </div>
@@ -410,13 +410,13 @@
         ctx.fillStyle = '#d4af37';
         ctx.font = 'bold 44px "Rozha One", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('Fruits Festival 2026', canvas.width / 2, 90);
+        ctx.fillText('ফল উৎসব ২০২৬', canvas.width / 2, 90);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = '22px "Baloo 2", sans-serif';
         ctx.fillText('আয়োজনেঃ এস.এস.সি-৯৩ পিরোজপুর', canvas.width / 2, 135);
 
-        // সিরিয়াল নম্বর প্রিন্ট (কার্ডের উপরে ডা��� কোনায় ছোট করে)
+        // সিরিয়াল নম্বর প্রিন্ট (কার্ডের উপরে দাইন কোনায় ছোট করে)
         ctx.fillStyle = '#ffc107';
         ctx.font = 'bold 18px "Segoe UI", sans-serif';
         ctx.textAlign = 'right';
@@ -623,10 +623,10 @@
             <h3>👤 নাম: ${member.name}</h3>
             <p>📱 মোবাইল: ${member.phone}</p>
             <hr>
-            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>${member.checkedIn ? '✓ প্রবেশ সম্পন্ন' : '✗ প্রবেশ চিহ্নিত করুন'}</button>
-            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>${member.mealServed ? '✓ খাবার সম্পন্ন' : '✗ খাবার প্রদান করুন'}</button>
-            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>${member.snackServed ? '✓ নাস্তা সম্পন্ন' : '✗ নাস্তা প্রদান করুন'}</button>
-            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>${member.souvenirGiven ? '✓ স্মারক সম্পন্ন' : '✗ স্মারক প্রদান করুন'}</button>
+            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>${member.checkedIn ? '✓ প্রবেশ হয়েছে' : '→ প্রবেশ করান'}</button>
+            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>${member.mealServed ? '✓ খাবার দেওয়া হয়েছে' : '→ খাবার দিন'}</button>
+            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>${member.snackServed ? '✓ নাস্তা দেওয়া হয়েছে' : '→ নাস্তা দিন'}</button>
+            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>${member.souvenirGiven ? '✓ স্মারক দেওয়া হয়েছে' : '→ স্মারক দিন'}</button>
         `;
         
         document.querySelectorAll('#scanDetails .action-btn').forEach(btn => {
