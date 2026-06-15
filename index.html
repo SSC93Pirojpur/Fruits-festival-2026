@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ফল উৎসব ২০২৬</title>
+    <title>ফল উৎসব ২০२६</title>
     <!-- JSZip for Bulk Downloads -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <!-- QR Code Library -->
@@ -410,17 +410,11 @@
         ctx.fillStyle = '#d4af37';
         ctx.font = 'bold 44px "Rozha One", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('ফল উৎসব ২০২৬', canvas.width / 2, 90);
+        ctx.fillText('ফল উৎসব ২०२६', canvas.width / 2, 90);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = '22px "Baloo 2", sans-serif';
-        ctx.fillText('আয়োজনেঃ এস.এস.সি-৯৩ পিরোজপুর', canvas.width / 2, 135);
-
-        // সিরিয়াল নম্বর প্রিন্ট (কার্ডের উপরে দাইন কোনায় ছোট করে)
-        ctx.fillStyle = '#ffc107';
-        ctx.font = 'bold 18px "Segoe UI", sans-serif';
-        ctx.textAlign = 'right';
-        ctx.fillText('ID: ' + (serialNo || '93-2026-06-000'), canvas.width - 40, 45);
+        ctx.fillText('আয়োজনেঃ এস.এস.সি-৯३ পিরোজপুর', canvas.width / 2, 135);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 38px "Baloo 2", sans-serif';
@@ -430,6 +424,12 @@
         ctx.fillStyle = '#b6effb';
         ctx.font = '22px "Baloo 2", sans-serif';
         ctx.fillText('মোবাইল: ' + phone, canvas.width / 2, 315);
+
+        // রেজিস্ট্রেশন আইডি - মোবাইলের নিচে এবং বড় ফন্ট
+        ctx.fillStyle = '#ffc107';
+        ctx.font = 'bold 28px "Baloo 2", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('ID: ' + (serialNo || '93-2026-06-000'), canvas.width / 2, 360);
 
         const qr = new QRious({ value: phone, size: 140 });
         try {
