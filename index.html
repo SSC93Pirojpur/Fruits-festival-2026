@@ -623,10 +623,10 @@
             <h3>👤 নাম: ${member.name}</h3>
             <p>📱 মোবাইল: ${member.phone}</p>
             <hr>
-            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>${member.checkedIn ? '✓ প্রবেশ হয়েছে' : '→ প্রবেশ করান'}</button>
-            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>${member.mealServed ? '✓ খাবার দেওয়া হয়েছে' : '→ খাবার দিন'}</button>
-            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>${member.snackServed ? '✓ নাস্তা দেওয়া হয়েছে' : '→ নাস্তা দিন'}</button>
-            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>${member.souvenirGiven ? '✓ স্মারক দেওয়া হয়েছে' : '→ স্মারক দিন'}</button>
+            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>✓ প্রবেশ অনুমোদন ${member.checkedIn ? '(সম্পন্ন)' : ''}</button>
+            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>🍽️ খাবার পরিবেশন ${member.mealServed ? '(সম্পন্ন)' : ''}</button>
+            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>☕ নাস্তা পরিবেশন ${member.snackServed ? '(সম্পন্ন)' : ''}</button>
+            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>🎁 স্মারক প্রদান ${member.souvenirGiven ? '(সম্পন্ন)' : ''}</button>
         `;
         
         document.querySelectorAll('#scanDetails .action-btn').forEach(btn => {
