@@ -218,7 +218,7 @@
 
 <div class="container">
     <header>
-        <h1>Fruits Festival 2026</h1>
+        <h1>২য় বন্ধু মহামিলন ঢাকা ২০২৬</h1>
         <p class="subtitle">SSC 93 Pirojpur - Cloud Registration Base</p>
     </header>
 
@@ -243,7 +243,7 @@
                         <input type="tel" id="memberPhone" required placeholder="01712345678">
                     </div>
                     <div class="form-group">
-                        <label>পেমেন্ট তথ্য:</label>
+                        <label>পেমে��্ট তথ্য:</label>
                         <input type="text" id="paymentInfo" required placeholder="Bkash ID/Cash">
                     </div>
                     <div class="form-group">
@@ -308,7 +308,7 @@
             <div class="card">
                 <h2>সদস্য ভেরিফিকেশন প্যানেল</h2>
                 <div id="scanDetails" style="color: #999;">
-                    ক্যামেরার সামনে কিউআর কোড ধরুন অথবা মোবাইল নম্বর দিয়ে সার্চ করুন।
+                    ক্যামেরার সামনে কিউআর কোড ধরুন অথবা মোবাইল নম্বর দিয়ে সার্চ করুন
                 </div>
             </div>
         </div>
@@ -368,9 +368,10 @@
             document.getElementById('dashboardError').innerHTML = '';
         } catch (e) {
             console.error("❌ Cloud sync error:", e);
-            const errorMsg = `❌ ক্লাউড ডাটাবেস সিঙ্ক ব্যর্থ! <br>এরর: ${e.message}<br>Google Apps Script URL চেক করুন এবং সঠিক কিনা নিশ্চিত করুন।`;
+            const errorMsg = `❌ ক্লাউড ডাটাবেস সিঙ্ক ব্যর্থ! <br>এরর: ${e.message}<br>Google Apps Script URL চেক করুন এব` +
+                `ং ডিপ্লয়মেন্ট স্টেটাস সঠিক আছে কি না।`;
             document.getElementById('dashboardError').innerHTML = `<div class="error-message">${errorMsg}</div>`;
-            alert("❌ ক্লাউড ডাটাবেস সিঙ্ক ব্যর্থ!\n\nGoogle Apps Script URL হতে পারে:\n1. Invalid বা Expired\n2. Deployment Settings সঠিক নয়\n3. CORS সমস্যা\n\nConsole এ বিস্তারিত দেখুন।");
+            alert("❌ ক্লাউড ডাটাবেস সিঙ্ক ব্যর্থ!\n\nGoogle Apps Script URL হতে পারে:\n1. Invalid বা Expired\n2. Deployment Set[...]");
         } finally {
             hideLoader();
         }
@@ -416,7 +417,7 @@
         ctx.fillStyle = '#d4af37';
         ctx.font = 'bold 44px "Rozha One", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('ফল উৎসব ২০২৬', canvas.width / 2, 90);
+        ctx.fillText('২য় বন্ধু মহামিলন ঢাকা ২০২৬', canvas.width / 2, 90);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = '22px "Baloo 2", sans-serif';
@@ -559,7 +560,7 @@
         const tbody = document.querySelector('#membersTable tbody');
         tbody.innerHTML = '';
         if(registeredMembers.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="9" class="empty-state">কোনো ডাটা পাওয়া যায়নি</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="9" class="empty-state">কোনো ড���টা পাওয়া যায়নি</td></tr>';
             return;
         }
         
@@ -630,10 +631,10 @@
             <h3>👤 নাম: ${member.name}</h3>
             <p>📱 মোবাইল: ${member.phone}</p>
             <hr>
-            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>✓ প্রবেশ অনুমোদন ${member.checkedIn ? '(সম্পন্ন)' : ''}</button>
-            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>🍽️ খাবার পরিবেশন ${member.mealServed ? '(সম্পন্ন)' : ''}</button>
-            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>☕ নাস্তা পরিবেশন ${member.snackServed ? '(সম্পন্ন)' : ''}</button>
-            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>🎁 স্মারক প্রদান ${member.souvenirGiven ? '(সম্পন্ন)' : ''}</button>
+            <button class="action-btn ${member.checkedIn ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="checkedIn" ${member.checkedIn ? 'disabled' : ''}>✓ প্রবে[...]
+            <button class="action-btn ${member.mealServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="mealServed" ${member.mealServed ? 'disabled' : ''}>🍽️ খা��[...]
+            <button class="action-btn ${member.snackServed ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="snackServed" ${member.snackServed ? 'disabled' : ''}>☕ নাস[...]
+            <button class="action-btn ${member.souvenirGiven ? 'disabled-state' : ''}" data-phone="${member.phone}" data-property="souvenirGiven" ${member.souvenirGiven ? 'disabled' : ''}>🎁 ��[...]
         `;
         
         document.querySelectorAll('#scanDetails .action-btn').forEach(btn => {
@@ -682,7 +683,7 @@
     function downloadSingleCard() {
         if (!lastRegisteredMember) return;
         let link = document.createElement('a');
-        link.download = `${lastRegisteredMember.serialNo}_${lastRegisteredMember.name}_Pass.png`;
+        link.download = `${lastRegisteredMember.serialNo}_${lastRegisteredMember.name}_2nd-friend-meet-dhaka-2026.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
     }
@@ -697,12 +698,12 @@
                 const currentSerial = m.serialNo || generateSerialNumber(i + 1);
                 await drawCardBase(m.name, m.phone, m.photoUrl, currentSerial);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
-                zip.file(`${currentSerial}_${m.name}_Pass.png`, blob);
+                zip.file(`${currentSerial}_${m.name}_2nd-friend-meet-dhaka-2026.png`, blob);
             }
             const zipContent = await zip.generateAsync({ type: 'blob' });
             let link = document.createElement('a');
             link.href = URL.createObjectURL(zipContent);
-            link.download = 'Fruits_Festival_All_Passes.zip';
+            link.download = '2nd-friend-meet-dhaka-2026_All_Passes.zip';
             link.click();
         } catch(err) {
             alert("❌ জিপ তৈরিতে ত্রুটি");
