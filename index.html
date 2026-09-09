@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ফল উৎসব ২০২৬</title>
-    <!-- JSZip for Bulk Downloads -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <!-- QR Code Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-    <!-- HTML5 QR Code Scanner Library -->
     <script src="https://unpkg.com/html5-qrcode"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Rozha+One&display=swap" rel="stylesheet">
     
     <style>
@@ -210,6 +206,7 @@
             opacity: 0.65;
         }
         .empty-state { text-align: center; color: #999; padding: 30px; }
+        .error-message { background: #f8d7da; color: #842029; padding: 10px; border-radius: 5px; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -275,6 +272,7 @@
                     <button onclick="exportAllToZip()" style="width: auto; background-color: var(--secondary); color: var(--dark);">সব কার্ড ডাউনলোড 📦</button>
                 </div>
             </div>
+            <div id="dashboardError"></div>
             <div class="table-wrapper">
                 <table id="membersTable">
                     <thead>
@@ -318,9 +316,6 @@
 </div>
 
 <script>
-    // ==========================================
-    // ⚠️ আপনার গুগল অ্যাপস স্ক্রিপ্ট লিংকটি এখানে দিন
-    // ==========================================
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7gnMon8A1986gOlmRk9Z5yqhzsq6NGb2pjKfYf4g-RNyaPl-YL7Ju5t4eH4q-lbbQ/exec";
     let registeredMembers = [];
     const canvas = document.getElementById('ticketCanvas');
@@ -330,8 +325,9 @@
     let currentScannedPhone = "";
 
     window.onload = async () => {
+        console.log("🔍 Checking SCRIPT_URL:", SCRIPT_URL.substring(0, 50) + "...");
         if(!SCRIPT_URL || SCRIPT_URL.includes('YOUR_APPS_SCRIPT')) {
-            console.log("Running in Sandbox Mode. Configure SCRIPT_URL for Live Database.");
+            console.log("⚠️ Running in Sandbox Mode. Configure SCRIPT_URL for Live Database.");
             await drawCardBase("আপনার নাম এখানে", "01712345678", "", "93-2026-06-000");
             return;
         }
@@ -340,7 +336,6 @@
     };
 
     function generateSerialNumber(index) {
-        // ফরম্যাট: 93-2026-06-XXX (XXX হলো ৩ ডিজিটের ক্রমানুসার সংখ্যা)
         let padSize = Math.max(3, String(index).length);
         let serialCount = String(index).padStart(padSize, '0');
         return `93-2026-06-${serialCount}`;
@@ -359,12 +354,23 @@
         if(!SCRIPT_URL || SCRIPT_URL.includes('YOUR_APPS_SCRIPT')) return;
         showLoader("গুগল শিট থেকে ডাটাবেস লোড হচ্ছে...");
         try {
+            console.log("📡 Fetching data from:", SCRIPT_URL);
             const response = await fetch(SCRIPT_URL);
+            console.log("✅ Response received, status:", response.status);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             registeredMembers = await response.json();
+            console.log("✅ Data loaded successfully:", registeredMembers.length, "members");
             updateTable();
+            document.getElementById('dashboardError').innerHTML = '';
         } catch (e) {
-            console.error(e);
-            alert("❌ ক্লাউড ডাটাবেস সিঙ্ক করতে ব্যর্থ! ডেপ্লয়মেন্ট সেটিংস চেক করুন।");
+            console.error("❌ Cloud sync error:", e);
+            const errorMsg = `❌ ক্লাউড ডাটাবেস সিঙ্ক ব্যর্থ! <br>এরর: ${e.message}<br>Google Apps Script URL চেক করুন এবং সঠিক কিনা নিশ্চিত করুন।`;
+            document.getElementById('dashboardError').innerHTML = `<div class="error-message">${errorMsg}</div>`;
+            alert("❌ ক্লাউড ডাটাবেস সিঙ্ক ব্যর্থ!\n\nGoogle Apps Script URL হতে পারে:\n1. Invalid বা Expired\n2. Deployment Settings সঠিক নয়\n3. CORS সমস্যা\n\nConsole এ বিস্তারিত দেখুন।");
         } finally {
             hideLoader();
         }
@@ -425,7 +431,6 @@
         ctx.font = '22px "Baloo 2", sans-serif';
         ctx.fillText('মোবাইল: ' + phone, canvas.width / 2, 315);
 
-        // রেজিস্ট্রেশন আইডি - মোবাইলের নিচে এবং বড় ফন্ট (একমাত্র ID লাইন)
         ctx.fillStyle = '#ffc107';
         ctx.font = 'bold 28px "Baloo 2", sans-serif';
         ctx.textAlign = 'center';
@@ -466,7 +471,8 @@
                 img.src = event.target.result;
                 img.onload = () => {
                     const tempCanvas = document.createElement('canvas');
-                    tempCanvas.width = 150; tempCanvas.height = 150;
+                    tempCanvas.width = 150;
+                    tempCanvas.height = 150;
                     const tempCtx = tempCanvas.getContext('2d');
                     tempCtx.drawImage(img, 0, 0, 150, 150);
                     resolve(tempCanvas.toDataURL('image/jpeg', 0.6));
@@ -499,7 +505,6 @@
             }
         }
 
-        // লোকাল জেনারেশন অফলাইন মোডের জন্য ব্যাকআপ হিসেবে
         const nextIndex = registeredMembers.length + 1;
         const autoSerial = generateSerialNumber(nextIndex);
 
@@ -524,6 +529,7 @@
         }
 
         try {
+            console.log("📤 Sending registration data to:", SCRIPT_URL);
             await fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -539,7 +545,9 @@
             updateTable();
             document.getElementById('regForm').reset();
             alert('✓ ' + name + ' এর তথ্য ক্লাউডে সংরক্ষিত হয়েছে! আইডি: ' + autoSerial);
+            console.log("✅ Registration successful for:", phone);
         } catch (e) {
+            console.error("❌ Registration error:", e);
             alert('❌ সার্ভার কানেকশন ত্রুটি!');
         } finally {
             hideLoader();
@@ -557,7 +565,6 @@
         
         let html = '';
         registeredMembers.forEach((m, index) => {
-            // যদি ডাটাবেস থেকে সিরিয়াল না আসে তবে অটো জেনারেট করবে
             const displaySerial = m.serialNo || generateSerialNumber(index + 1);
             const avatarHtml = m.photoUrl ? `<img src="${m.photoUrl}" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">` : `No Photo`;
             
@@ -653,6 +660,7 @@
         }
 
         try {
+            console.log("📤 Updating status for:", phone);
             await fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -661,8 +669,10 @@
             });
             updateTable();
             renderBouncerPanel(phone);
+            console.log("✅ Status updated successfully");
         } catch (e) {
-            alert('❌ ক্লাউড আপডেট ব্যর্থ!');
+            console.error("❌ Update error:", e);
+            alert('❌ ক্লা���ড আপডেট ব্যর্থ!');
         } finally {
             hideLoader();
             setTimeout(fetchCloudData, 1000);
